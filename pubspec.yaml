@@ -31,6 +31,9 @@ dependencies:
   dio: ^4.0.0
   shared_preferences: ^2.0.5
   google_maps_flutter: ^2.0.6
+  location: ^4.1.1
+  image_picker: ^0.7.5+3
+  
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +58,7 @@ flutter:
     - images/Shop.jpg
     - images/User.jpg
     - images/PicShop.png
+    - images/food_list1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

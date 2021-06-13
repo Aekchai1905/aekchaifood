@@ -1,3 +1,4 @@
+
 import 'package:aekfooddelivery/Screen/home.dart';
 import 'package:aekfooddelivery/utility/my_style.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.green),
       title: MyStyle().applicationName,
+      // home: AddInfoShop(),
       home: Home(),
     );
   }

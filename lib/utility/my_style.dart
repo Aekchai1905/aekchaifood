@@ -8,7 +8,11 @@ class MyStyle {
 
   MyStyle();
 
-  
+  Widget showProgress() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
 
   SizedBox mySizebox() => SizedBox(
         width: 8.0,
@@ -46,6 +50,14 @@ class MyStyle {
           fontWeight: FontWeight.bold,
         ),
       );
+  Text showTitleH3(String title) => Text(
+        title,
+        style: TextStyle(
+          fontSize: 16.0,
+          color: Colors.blue.shade900,
+          fontWeight: FontWeight.w500,
+        ),
+      );
 
   Drawer showDrawer(String nameFrame) => Drawer(
         child: ListView(
@@ -70,9 +82,10 @@ class MyStyle {
     );
   }
 
-  Widget titleCenter(BuildContext  context, String string) {
+  Widget titleCenter(BuildContext context, String string) {
     return Center(
-      child: Container(width: MediaQuery.of(context).size.width*0.5,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.5,
         child: Text(
           string,
           style: TextStyle(
@@ -83,4 +96,16 @@ class MyStyle {
       ),
     );
   }
+
+  TextStyle mainTitle = TextStyle(
+    fontSize: 18.0,
+    fontWeight: FontWeight.bold,
+    color: Colors.purple,
+  );
+
+  TextStyle mainH2Title = TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+    color: Colors.green.shade700,
+  );
 }

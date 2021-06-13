@@ -1,3 +1,4 @@
+import 'package:aekfooddelivery/utility/my_constant.dart';
 import 'package:aekfooddelivery/utility/my_style.dart';
 import 'package:aekfooddelivery/utility/normal_dialog.dart';
 import 'package:dio/dio.dart';
@@ -78,8 +79,7 @@ class _SignUpState extends State<SignUp> {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           onPressed: () {
-            print(
-                "name= $name ,user=$user ,password=$password ,chooseType = $chooseType");
+            // print("name= $name ,user=$user ,password=$password ,chooseType = $chooseType");
             if (name == null ||
                 name.isEmpty ||
                 user == null ||
@@ -99,10 +99,13 @@ class _SignUpState extends State<SignUp> {
       );
 
   Future<Null> checkUser() async {
-    String url = "http://192.168.56.1/aekchaifood/getUserWhere.php?isAdd=true&User=$user";
+    String url =
+        "${MyConstant().domain}/aekchaifood/getUserWhere.php?isAdd=true&user=$user";
+
     try {
       Response response = await Dio().get(url);
       if (response.toString() == "null") {
+        print("before register");
         registerThread();
       } else {
         normalDialog(
@@ -113,7 +116,7 @@ class _SignUpState extends State<SignUp> {
 
   Future<Null> registerThread() async {
     String url =
-        "http://192.168.56.1/aekchaifood/adduser.php?isAdd=true&Name=$name&User=$user&Password=$password&ChooseType=$chooseType";
+        "${MyConstant().domain}/aekchaifood/adduser.php?isAdd=true&name=$name&user=$user&password=$password&ChooseType=$chooseType";
 
     try {
       Response response = await Dio().get(url);

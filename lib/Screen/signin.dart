@@ -3,6 +3,7 @@ import 'package:aekfooddelivery/Screen/main_rider.dart';
 import 'package:aekfooddelivery/Screen/main_shop.dart';
 import 'package:aekfooddelivery/Screen/main_user.dart';
 import 'package:aekfooddelivery/model/user_model.dart';
+import 'package:aekfooddelivery/utility/my_constant.dart';
 import 'package:aekfooddelivery/utility/my_style.dart';
 import 'package:aekfooddelivery/utility/normal_dialog.dart';
 import 'package:dio/dio.dart';
@@ -74,28 +75,35 @@ class _SignInState extends State<SignIn> {
       );
 
   Future<Null> checkAuthen() async {
-    String url = "http://192.168.56.1/getUserWhere.php?isAdd=true&User=$user";
+    String url =
+        "${MyConstant().domain}/aekchaifood/getUserWhere.php?isAdd=true&user=$user";
+    print(url);
     try {
       Response response = await Dio().get(url);
       print("response = $response");
       var result = json.decode(response.data);
       print("result = $result");
-      for (var map in result) {
-        UserModel userModel = UserModel.fromJson(map);
-        if (password == userModel.password) {
-          String chooseType = userModel.chooseType;
+      if (result == null) {
+        normalDialog(context, "User ไม่ถูกต้อง กรุณาลองใหม่");
+      } else {
+        for (var map in result) {
+          UserModel userModel = UserModel.fromJson(map);
+          print(user);
+          if (password == userModel.password) {
+            String chooseType = userModel.chooseType;
 
-          if (chooseType == "User") {
-            routeToService(MainUser(), userModel);
-          } else if (chooseType == "Shop") {
-            routeToService(MainShop(), userModel);
-          } else if (chooseType == "Rider") {
-            routeToService(MainRider(), userModel);
+            if (chooseType == "User") {
+              routeToService(MainUser(), userModel);
+            } else if (chooseType == "Shop") {
+              routeToService(MainShop(), userModel);
+            } else if (chooseType == "Rider") {
+              routeToService(MainRider(), userModel);
+            } else {
+              normalDialog(context, "Error");
+            }
           } else {
-            normalDialog(context, "Error");
+            normalDialog(context, "Password ไม่ถูกต้อง กรุณาลองใหม่");
           }
-        } else {
-          normalDialog(context, "Password ไม่ถูกต้อง กรุณาลองใหม่");
         }
       }
     } catch (e) {}
