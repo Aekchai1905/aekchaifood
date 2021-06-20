@@ -2,6 +2,7 @@
 // import 'package:aekfooddelivery/Screen/show_shop_fodd_menu.dart';
 // import 'package:aekfooddelivery/model/user_model.dart';
 // import 'package:aekfooddelivery/utility/my_constant.dart';
+import 'package:aekfooddelivery/Screen/show_cart.dart';
 import 'package:aekfooddelivery/utility/my_style.dart';
 import 'package:aekfooddelivery/utility/signoutprocess.dart';
 import 'package:aekfooddelivery/widget/show_list_shop_all.dart';
@@ -26,8 +27,6 @@ class _MainUserState extends State<MainUser> {
     // readShop();
   }
 
-
-
   Future<Null> findUser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
@@ -41,15 +40,16 @@ class _MainUserState extends State<MainUser> {
       appBar: AppBar(
           title: Text(name == null ? "Main User" : "$name  login "),
           actions: <Widget>[
+            MyStyle().iconShowCart(context),
             IconButton(
                 icon: Icon(Icons.exit_to_app),
                 onPressed: () {
                   signOutProcess(context);
                 })
           ]),
-      body: currentWidget, 
+      body: currentWidget,
       drawer: showDrawer("User"),
-      );
+    );
   }
 
   Drawer showDrawer(String nameFrame) => Drawer(
@@ -58,14 +58,15 @@ class _MainUserState extends State<MainUser> {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                showHeadDrawer(nameFrame), 
+                showHeadDrawer(nameFrame),
                 menuListShop(),
+                menuCart(),
                 menuStatusFoodOrder(),
               ],
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [ 
+              children: [
                 menuSignOut(),
               ],
             ),
@@ -74,25 +75,27 @@ class _MainUserState extends State<MainUser> {
       );
 
   ListTile menuListShop() {
-    return ListTile(onTap: () {
-      Navigator.pop(context);
-      setState(() {
-        currentWidget = ShowListShopAll();
-      });
-    },
+    return ListTile(
+      onTap: () {
+        Navigator.pop(context);
+        setState(() {
+          currentWidget = ShowListShopAll();
+        });
+      },
       leading: Icon(Icons.home),
       title: Text("แสดงร้านค้า"),
       subtitle: Text("แสดงร้านค้าที่สามารถสั่งอาหารได้"),
     );
   }
 
-ListTile menuStatusFoodOrder() {
-    return ListTile(onTap: () {
-      Navigator.pop(context);
-      setState(() {
-        currentWidget = ShowStatusFoodOrder();
-      });
-    },
+  ListTile menuStatusFoodOrder() {
+    return ListTile(
+      onTap: () {
+        Navigator.pop(context);
+        setState(() {
+          currentWidget = ShowStatusFoodOrder();
+        });
+      },
       leading: Icon(Icons.restaurant_menu),
       title: Text("แสดงรายการอาหารที่สั่ง"),
       subtitle: Text("แสดงรายการอาหารที่สั่ง หรือดูสถานะอาหารที่สั่ง"),
@@ -132,6 +135,21 @@ ListTile menuStatusFoodOrder() {
         "LogIn",
         style: TextStyle(color: MyStyle().whiteColor),
       ),
+    );
+  }
+
+  Widget menuCart() {
+    return ListTile(
+      leading: Icon(Icons.add_shopping_cart),
+      title: Text("ตะกร้าของฉัน"),
+      subtitle: Text("รายการอาหาร ที่อยู่ในตะกร้า ยังไม่ได้ order"),
+      onTap: () {
+        Navigator.pop(context);
+        MaterialPageRoute route = MaterialPageRoute(
+          builder: (context) => ShowCart(),
+        );
+        Navigator.push(context, route);
+      },
     );
   }
 }

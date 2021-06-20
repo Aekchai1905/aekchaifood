@@ -1,3 +1,4 @@
+import 'package:aekfooddelivery/Screen/show_cart.dart';
 import 'package:flutter/material.dart';
 
 class MyStyle {
@@ -7,6 +8,15 @@ class MyStyle {
   String applicationName = "MKL Delivery";
 
   MyStyle();
+
+  Widget iconShowCart(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          MaterialPageRoute route = MaterialPageRoute(builder: (context) => ShowCart(),);
+          Navigator.push(context, route);
+        },
+        icon: Icon(Icons.add_shopping_cart));
+  }
 
   Widget showProgress() {
     return Center(
@@ -50,6 +60,7 @@ class MyStyle {
           fontWeight: FontWeight.bold,
         ),
       );
+
   Text showTitleH3(String title) => Text(
         title,
         style: TextStyle(
@@ -58,6 +69,17 @@ class MyStyle {
           fontWeight: FontWeight.w500,
         ),
       );
+
+
+       Text showTitleH3Red(String title) => Text(
+        title,
+        style: TextStyle(
+          fontSize: 16.0,
+          color: Colors.red ,
+          fontWeight: FontWeight.w500,
+        ),
+      );
+
 
   Drawer showDrawer(String nameFrame) => Drawer(
         child: ListView(
@@ -108,4 +130,6 @@ class MyStyle {
     fontWeight: FontWeight.bold,
     color: Colors.green.shade700,
   );
+
+
 }
